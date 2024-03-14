@@ -1,6 +1,6 @@
 const Testimonials = () => {
   return (
-    <div>Testimonials</div>
+    <div className="h-[700px]" id="testimonials">Testimonials</div>
   )
 }
 
