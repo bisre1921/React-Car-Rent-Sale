@@ -44,7 +44,7 @@ const Navbar = () => {
           };
     } , []);
   return (
-        <nav className="sticky top-0 z-50  bg-black text-white">
+        <nav className="sticky top-0 z-50 text-white">
             <div className={`flex max-w-6xl mx-auto justify-between  ${isMenuClicked ? "items-start" : "items-center"} `}>
                 <div>
                     <img 
@@ -56,22 +56,22 @@ const Navbar = () => {
                 <div className={`md:flex md:flex-row ${isMenuClicked ? 'block' : 'hidden'}`}>
                     <div className="mb-[24px] md:mb-0">
                         <ul className={`flex flex-col md:flex-row gap-6 ${isMenuClicked ? 'justify-center items-center' : ''}`}>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "home" && PathName("/") ? "active text-amber-900 " : ""}  `}>
+                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "home" && PathName("/") ? "active text-amber-700 " : ""}  `}>
                                 <Link to="home" smooth={true} duration={500} offset={-100} onClick={() => navigate("/")}>
                                     Home
                                 </Link>
                             </li>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "about" ? "active text-amber-900 " : ""}  `}>
+                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "about" ? "active text-amber-700 " : ""}  `}>
                                 <Link to="about" smooth={true} duration={500} offset={-100}>
                                     About
                                 </Link>
                             </li>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "testimonials" ? "active text-amber-900 " : ""}  `}>
+                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "testimonials" ? "active text-amber-700 " : ""}  `}>
                                 <Link to="testimonials" smooth={true} duration={500} offset={-100}>
                                     Testimonials
                                 </Link>
                             </li>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "contact" ? "active text-amber-900 " : ""}  `}>
+                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "contact" ? "active text-amber-700 " : ""}  `}>
                                 <Link to="contact" smooth={true} duration={500} offset={-100}>
                                     Contact
                                 </Link>
@@ -80,10 +80,10 @@ const Navbar = () => {
                     </div>
                     <div className="md:ml-16 lg:ml-40 xl:ml-60">
                         <ul className={`flex flex-col md:flex-row gap-6 ${isMenuClicked ? 'justify-center items-center' : ''}`}>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-in") && "active text-amber-900 "}  `} onClick={() => navigate("/sign-in")}>
+                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-in") && "active text-amber-700 "}  `} onClick={() => navigate("/sign-in")}>
                                 Sign In
                             </li>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-up") && "active text-amber-900 "}}  `} onClick={() => navigate("/sign-up")}>
+                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-up") && "active text-amber-700 "}}  `} onClick={() => navigate("/sign-up")}>
                                 Sign Up
                             </li>
                         </ul>

@@ -5,7 +5,7 @@ import Contact from "../Components/Contact";
 
 const FrontPage = () => {
   return (
-    <div className="max-w-6xl mx-auto pt-[20px]">
+    <div className="mx-auto pt-[20px]">
         <Home />
         <About />
         <Testimonials />
