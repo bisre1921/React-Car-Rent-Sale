@@ -2,7 +2,7 @@ import about from "../Assets/about.png";
 
 const About = () => {
   return (
-    <div className="mt-80 max-w-7xl mx-auto h-[700px] text-white ">
+    <div className="mt-80 mb-80 max-w-7xl mx-auto h-[700px] text-white ">
          <h1 className="text-6xl font-bold mb-16 text-center">
             About <span className="text-amber-700">CarConnect</span>
           </h1>

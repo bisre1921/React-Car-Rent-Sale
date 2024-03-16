@@ -74,7 +74,7 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${activeSection === "testimonials" ? "active text-black md:text-amber-700 " : ""}  `}>
-                                <Link to="testimonials" smooth={true} duration={500} offset={-100}
+                                <Link to="testimonials" smooth={true} duration={500} offset={-250}
                                         onClick={() => {
                                             setIsMenuClicked(false)
                                             }}>
