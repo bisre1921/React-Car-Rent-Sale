@@ -30,7 +30,7 @@ const Navbar = () => {
               setActiveSection("home");
             } else if (scrollPosition >= 700 && scrollPosition < 1400) {
               setActiveSection("about");
-            } else if (scrollPosition >= 1400 && scrollPosition < 2100) {
+            } else if (scrollPosition >= 1400 && scrollPosition < 2300) {
               setActiveSection("testimonials");
             } else {
               setActiveSection("contact");
