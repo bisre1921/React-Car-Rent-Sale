@@ -1,3 +1,7 @@
+import { FaInstagram } from "react-icons/fa6";
+import { FaTiktok } from "react-icons/fa";
+import { FaTelegramPlane } from "react-icons/fa";
+
 const Contact = () => {
   return (
     <div className="mx-auto max-w-6xl text-white h-[500px] mt-[800px] lg:mt-0" id="contact">
@@ -25,6 +29,11 @@ const Contact = () => {
           </button>
         </div>
       </div>
+      <div className="flex justify-center items-center gap-8 pt-10">
+          <FaInstagram className="rounded-full bg-amber-700 p-3 text-6xl cursor-pointer" />
+          <FaTiktok className="rounded-full bg-amber-700 p-3 text-6xl cursor-pointer"/>
+          <FaTelegramPlane className="rounded-full bg-amber-700 p-3 text-6xl cursor-pointer"/>
+        </div>
     </div>
   )
 }
