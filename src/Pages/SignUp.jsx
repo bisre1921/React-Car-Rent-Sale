@@ -1,5 +1,5 @@
 import signInUp from "../Assets/signInUp.png";
-import {Link} from "react-router-dom";
+import {Link , useNavigate} from "react-router-dom";
 import SignInWithGoogle from "../Components/SignInWithGoogle";
 import SignIn from "./SignIn";
 import { useState } from "react";
@@ -11,7 +11,7 @@ import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 
 const SignUp = () => {
-
+  const navigate = useNavigate();
   const [formData , setFormData] = useState({
     name : "" , 
     email : "" , 
@@ -43,8 +43,9 @@ const SignUp = () => {
       const formDataCopy = {...formData};
       delete formDataCopy.password;
       formDataCopy.timestamp = serverTimestamp();
-      await setDoc(doc(db , "users" , user.uid) , formDataCopy)
-      toast.success("User created successfully!")
+      await setDoc(doc(db , "users" , user.uid) , formDataCopy);
+      toast.success("User created successfully!");
+      navigate("/");
     } catch (error) {
       toast.error("Error creating user. please try again")
     }

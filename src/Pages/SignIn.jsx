@@ -1,10 +1,40 @@
 import signInUp from "../Assets/signInUp.png";
-import {Link} from "react-router-dom";
+import {Link , useNavigate} from "react-router-dom";
 import ForgotPassword from "./ForgotPassword";
 import SignInWithGoogle from "../Components/SignInWithGoogle";
 import SignUp from "./SignUp";
+import { useState } from "react";
+import {toast} from "react-toastify";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [formData , setFormData] = useState({
+    email : "" , 
+    password : ""
+  });
+  const {email , password} = formData;
+
+  const handleFormInputChange = (event) => {
+    setFormData(() => ({
+      ...formData , 
+      [event.target.id] : event.target.value
+    }));
+  };
+
+  const handleFormSubmit = async(event) => {
+    event.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth , email , password);
+      if(userCredential.user) {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Invalid email or password. Please check your credentials and try again.")
+    }
+  }
+
   return (
     <div className="max-w-7xl mx-auto  text-white">
       <h1 className="text-6xl font-bold mb-16 text-center">
@@ -19,15 +49,21 @@ const SignIn = () => {
           />
         </div>
         <div className="">
-          <form action="" className="flex flex-col">
+          <form onSubmit={handleFormSubmit} className="flex flex-col">
             <input 
               type="email" 
               placeholder="email..."
+              id="email"
+              value={email}
+              onChange={handleFormInputChange}
               className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
             />
             <input 
               type="password" 
               placeholder="password..."
+              id="password"
+              value={password}
+              onChange={handleFormInputChange}
               className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
             />
             <div className="flex gap-4 flex-col lg:flex-row justify-between mb-6">

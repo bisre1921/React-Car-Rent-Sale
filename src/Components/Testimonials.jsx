@@ -33,7 +33,7 @@ const Testimonials = () => {
       </div>
       <div className="flex flex-col  lg:flex-row justify-between">
         {testimonials.map((testimonial) => (
-          <Testimonial testimonial={testimonial} />
+          <Testimonial testimonial={testimonial} key={testimonial.name} />
         ))}
       </div>
     </div>
