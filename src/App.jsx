@@ -4,6 +4,8 @@ import SignUp from "./Pages/SignUp";
 import Navbar from "./Components/Navbar";
 import FrontPage from "./Pages/FrontPage";
 import ForgotPassword from "./Pages/ForgotPassword";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
@@ -17,8 +19,22 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </Router>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+/>
     </div>
   )
 };
+
+
 
 export default App;

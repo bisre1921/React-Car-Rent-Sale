@@ -2,8 +2,51 @@ import signInUp from "../Assets/signInUp.png";
 import {Link} from "react-router-dom";
 import SignInWithGoogle from "../Components/SignInWithGoogle";
 import SignIn from "./SignIn";
+import { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { db } from "../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import {toast} from "react-toastify";
 
 const SignUp = () => {
+
+  const [formData , setFormData] = useState({
+    name : "" , 
+    email : "" , 
+    password : ""
+  });
+
+  const {name , email , password} = formData;
+
+  const handleFormInputChange = (event) => {
+    setFormData((prevState) => (
+      {
+        ...prevState , 
+        [event.target.id] : event.target.value
+      }
+    ));
+  };
+
+  const handleFormSubmit = async(event) => {
+    event.preventDefault();
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(auth , email , password);
+      updateProfile(auth.currentUser , {
+        displayName : name
+      })
+      const user = userCredential.user;
+      const formDataCopy = {...formData};
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db , "users" , user.uid) , formDataCopy)
+      toast.success("User created successfully!")
+    } catch (error) {
+      toast.error("Error creating user. please try again")
+    }
+
+  }
+
   return (
     <div className="max-w-7xl mx-auto  text-white">
       <h1 className="text-6xl font-bold mb-16 text-center">
@@ -18,20 +61,29 @@ const SignUp = () => {
           />
         </div>
         <div className="">
-          <form action="" className="flex flex-col">
+          <form onSubmit={handleFormSubmit} className="flex flex-col">
             <input 
               type="text" 
               placeholder="name..."
-              className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
+              id="name"
+              value={name}
+              onChange={handleFormInputChange}
+              className="w-full 2xl:w-[400px] rounded px-2 py-4 mb-6 font-bold text-xl text-black"
             />
             <input 
               type="email" 
               placeholder="email..."
+              value={email}
+              id="email"
+              onChange={handleFormInputChange}
               className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
             />
             <input 
               type="password" 
               placeholder="password..."
+              value={password}
+              id="password"
+              onChange={handleFormInputChange}
               className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
             />
             <div className="flex flex-col lg:flex-row justify-between mb-6">
@@ -43,7 +95,7 @@ const SignUp = () => {
             </div>
             <div className="fex justify-center items-center text-center">
               <button className="w-full bg-zinc-900 shadow-xl py-2 transition duration-150 hover:bg-zinc-700 hover:shadow-2xl">
-                Sign In
+                Sign Up
               </button>
               <p className="my-2">
                 OR
