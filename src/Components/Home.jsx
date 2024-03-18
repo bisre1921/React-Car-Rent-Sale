@@ -75,7 +75,7 @@ const Home = ({loggedIn}) => {
                 ) : (
                     <button 
                       className="border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150" 
-                      onClick={() => navigate("")}
+                      onClick={() => navigate("/sale")}
                     >
                       Sale
                     </button>
@@ -91,7 +91,7 @@ const Home = ({loggedIn}) => {
                 ) : (
                     <button 
                       className="border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150" 
-                      onClick={() => navigate("")}
+                      onClick={() => navigate("/buy-rent")}
                     >
                       Buy / Rent
                     </button>

@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import BuyRent from "./Pages/BuyRent";
+import Sale from "./Pages/Sale";
+import PrivateRoute from "./Components/PrivateRoute";
 
 const App = () => {
 
@@ -34,7 +37,13 @@ const App = () => {
           <Route path="/" element={<FrontPage loggedIn={loggedIn} />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} /> 
+          <Route path="sale" element={<PrivateRoute />}>
+            <Route path="/sale" element={<Sale />} />
+          </Route>
+          <Route path="buy-rent" element={<PrivateRoute />}>
+            <Route path="/buy-rent" element={<BuyRent />} />
+          </Route>
         </Routes>
       </Router>
       <ToastContainer
