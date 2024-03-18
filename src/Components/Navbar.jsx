@@ -9,6 +9,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const Navbar = ({loggedIn}) => {
     const [activeSection , setActiveSection] = useState("home");
     const [isMenuClicked , setIsMenuClicked] = useState(false);
+    const [isScrolling, setIsScrolling] = useState(false);
     const auth = getAuth();
     const [name, setName] = useState(null);
 
@@ -28,7 +29,6 @@ const Navbar = ({loggedIn}) => {
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
-      
             if (scrollPosition < 700) {
               setActiveSection("home");
             } else if (scrollPosition >= 700 && scrollPosition < 1400) {
@@ -38,6 +38,8 @@ const Navbar = ({loggedIn}) => {
             } else {
               setActiveSection("contact");
             }
+
+            setIsScrolling(scrollPosition > 0);
           };
       
           window.addEventListener("scroll", handleScroll);
@@ -66,7 +68,7 @@ const Navbar = ({loggedIn}) => {
         console.log("finished");
     }
   return (
-        <nav className="sticky top-0 z-50 text-white">
+        <nav className={`${isScrolling ? "bg-zinc-800" : ""} sticky top-0 z-50 text-white`}>
             <div className={`flex max-w-6xl mx-auto justify-between  ${isMenuClicked ? "items-start bg-amber-700" : "items-center"} `}>
                 <div>
                     <img 
