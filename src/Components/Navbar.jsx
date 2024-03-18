@@ -4,10 +4,13 @@ import {Link} from "react-scroll";
 import {useNavigate , useLocation} from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import { TbLetterX } from "react-icons/tb";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-const Navbar = () => {
+const Navbar = ({loggedIn}) => {
     const [activeSection , setActiveSection] = useState("home");
     const [isMenuClicked , setIsMenuClicked] = useState(false);
+    const auth = getAuth();
+    const [name, setName] = useState(null);
 
     const handleMenuClicked = () => {
         setIsMenuClicked(!isMenuClicked);
@@ -43,6 +46,25 @@ const Navbar = () => {
             window.removeEventListener("scroll", handleScroll);
           };
     } , []);
+
+    useEffect(() => {
+        onAuthStateChanged(auth , (user) => {
+            if(user) {
+                setName(user.displayName);
+            } else {
+                setName(null);
+            }
+            
+        })
+    } , [auth])
+
+    const handleSignOut = async(event) => {
+        console.log("clicked")
+        //event.preventDefault();
+        auth.signOut();
+        navigate("/");
+        console.log("finished");
+    }
   return (
         <nav className="sticky top-0 z-50 text-white">
             <div className={`flex max-w-6xl mx-auto justify-between  ${isMenuClicked ? "items-start bg-amber-700" : "items-center"} `}>
@@ -93,20 +115,42 @@ const Navbar = () => {
                     </div>
                     <div className="md:ml-16 lg:ml-40 xl:ml-60">
                         <ul className={`flex flex-col md:flex-row gap-6 ${isMenuClicked ? 'justify-center items-center' : ''}`}>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-in") && "active text-black md:text-amber-700"}  `} 
+                            {!loggedIn ? (
+                                    <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-in") && "active text-black md:text-amber-700"}  `} 
                                     onClick={() => {
                                         navigate("/sign-in")
                                         setIsMenuClicked(false)
                                         }}>
-                                Sign In
-                            </li>
-                            <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-up") && "active text-black md:text-amber-700"}  `} 
+                                        Sign In
+                                    </li>
+                            ) : (
+                                    <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-in") && "active text-black md:text-amber-700"}  `} 
                                     onClick={() => {
-                                        navigate("/sign-up")
+                                        navigate("")
                                         setIsMenuClicked(false)
                                         }}>
-                                Sign Up
-                            </li>
+                                        {name}
+                                    </li>
+                            ) }
+                            
+                            {!loggedIn ? (
+                                <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-up") && "active text-black md:text-amber-700"}  `} 
+                                onClick={() => {
+                                    navigate("/sign-up")
+                                    setIsMenuClicked(false)
+                                    }}>
+                                    Sign Up
+                                </li>
+                            ) : (
+                                <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-up") && "active text-black md:text-amber-700"}  `} 
+                                    onClick={() => {
+                                        handleSignOut();
+                                        setIsMenuClicked(false)
+                                        }}>
+                                    Sign out
+                                </li>
+                            )}
+                            
                         </ul>
                     </div>
                 </div>
