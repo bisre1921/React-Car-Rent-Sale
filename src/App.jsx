@@ -12,6 +12,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import BuyRent from "./Pages/BuyRent";
 import Sale from "./Pages/Sale";
 import PrivateRoute from "./Components/PrivateRoute";
+import CarListing from "./Pages/CarListing";
 
 const App = () => {
 
@@ -30,7 +31,7 @@ const App = () => {
   } , [auth]);
 
   return (
-    <div>
+    <div> 
       <Router>
         <Navbar loggedIn={loggedIn} />
         <Routes>
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="buy-rent" element={<PrivateRoute />}>
             <Route path="/buy-rent" element={<BuyRent />} />
           </Route>
+          <Route path="/car/:carId" element={<CarListing />} />
         </Routes>
       </Router>
       <ToastContainer

@@ -6,9 +6,11 @@ import {toast} from "react-toastify";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import {db} from "../firebase";
 import ClipLoader from "react-spinners/ClipLoader";
+import {useNavigate} from "react-router-dom";
 
 const Sale = () => {
     const auth = getAuth();
+    const navigate = useNavigate();
     const [saleFormData , setSaleFormData] = useState({
         model : "" , 
         year : "" , 
@@ -105,6 +107,7 @@ const Sale = () => {
         const docRef = await addDoc(collection(db , "sales") , saleFormDataCopy);
         setLoading(false);
         toast.success("Car submitted Successfully");
+        navigate(`/car/${docRef.id}`)
     };
 
     if(loading) {
@@ -355,6 +358,7 @@ const Sale = () => {
                     <input 
                         type="file" 
                         required
+                        multiple
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-white pl-4 py-2 font-semibold"
                     />
@@ -406,6 +410,7 @@ const Sale = () => {
                             type="number" 
                             placeholder="Discounted Price..."
                             id="discountedPrice"
+                            required
                             value={discountedPrice}
                             onChange={handleSaleFormInputChange}
                             className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
