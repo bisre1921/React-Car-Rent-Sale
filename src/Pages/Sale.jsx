@@ -1,6 +1,11 @@
 import { useState } from "react"
+import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/storage";
+import {getAuth} from "firebase/auth";
+import {v4 as uuidv4} from "uuid";
+import {toast} from "react-toastify";
 
 const Sale = () => {
+    const auth = getAuth();
     const [saleFormData , setSaleFormData] = useState({
         model : "" , 
         year : "" , 
@@ -24,11 +29,17 @@ const Sale = () => {
         modification : "" ,
         sellerName : "" , 
         sellerPhoneNo : "" , 
-        images : "" , 
+        images : {} , 
         regularPrice : 0 , 
         discountedPrice : 0 ,
     })
     const {model , year , mileage , vin , exteriorColor , interiorColor , bodyStyle , engineSize , fuelType , description , location , history , warranty , modification , sellerName , sellerPhoneNo , images , regularPrice , discountedPrice , condition , mechanicalIssues , accidentHistory , brakes , navigation , transmission} = saleFormData;
+
+    const [checkOffer , setCheckOffer] = useState(false);
+    const setOffer = (event) => {
+        event.preventDefault();
+        setCheckOffer(!checkOffer);
+    };
 
     const handleSaleFormInputChange = (event) => {
         if(event.target.files) {
@@ -45,16 +56,50 @@ const Sale = () => {
         }
     };
 
-    const [checkOffer , setCheckOffer] = useState(false);
-    const setOffer = (event) => {
+    const handleSaleFormSubmit = async(event) => {
         event.preventDefault();
-        setCheckOffer(!checkOffer);
+
+        const storeCarImage = async(image) => {
+            return new Promise((resolve , reject) => {
+                const storage = getStorage();
+                const fileName = `${auth.currentUser.uid}-${image.name}-${uuidv4()}}`;
+                const storageRef = ref(storage , fileName);
+                const uploadTask = uploadBytesResumable(storageRef , image);
+
+                uploadTask.on("state_changed" ,
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                            switch (snapshot.state) {
+                            case 'paused':
+                                console.log('Upload is paused');
+                                break;
+                            case 'running':
+                                console.log('Upload is running');
+                                break;
+                            }
+                    } , 
+                    (error) => {
+                        reject(error);
+                    },
+                    () => {
+                        getDownloadURL(uploadTask.snapshot.ref).then((downloadORL) => {
+                            resolve(downloadORL);
+                        })
+                    }
+                )
+            })
+        };
+
+        const imageUrls = await Promise.all(
+            [...images].map((image) => storeCarImage(image))
+        ).catch((error) => {
+            toast.error("Car Images not uploaded");
+            return;
+        })
     };
 
-    const handleSaleFormSubmit = (event) => {
-        event.preventDefault();
-        console.log(saleFormData);
-    }
+
   return (
     <div className="text-white max-w-6xl mx-auto mt-10 mb-10">
         <div className="text-center">
