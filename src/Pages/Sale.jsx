@@ -3,6 +3,9 @@ import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/st
 import {getAuth} from "firebase/auth";
 import {v4 as uuidv4} from "uuid";
 import {toast} from "react-toastify";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {db} from "../firebase";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Sale = () => {
     const auth = getAuth();
@@ -35,6 +38,7 @@ const Sale = () => {
     })
     const {model , year , mileage , vin , exteriorColor , interiorColor , bodyStyle , engineSize , fuelType , description , location , history , warranty , modification , sellerName , sellerPhoneNo , images , regularPrice , discountedPrice , condition , mechanicalIssues , accidentHistory , brakes , navigation , transmission} = saleFormData;
 
+    const [loading , setLoading] = useState(false);
     const [checkOffer , setCheckOffer] = useState(false);
     const setOffer = (event) => {
         event.preventDefault();
@@ -58,7 +62,7 @@ const Sale = () => {
 
     const handleSaleFormSubmit = async(event) => {
         event.preventDefault();
-
+        setLoading(true);
         const storeCarImage = async(image) => {
             return new Promise((resolve , reject) => {
                 const storage = getStorage();
@@ -69,15 +73,6 @@ const Sale = () => {
                 uploadTask.on("state_changed" ,
                     (snapshot) => {
                         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        console.log('Upload is ' + progress + '% done');
-                            switch (snapshot.state) {
-                            case 'paused':
-                                console.log('Upload is paused');
-                                break;
-                            case 'running':
-                                console.log('Upload is running');
-                                break;
-                            }
                     } , 
                     (error) => {
                         reject(error);
@@ -96,8 +91,36 @@ const Sale = () => {
         ).catch((error) => {
             toast.error("Car Images not uploaded");
             return;
-        })
+        });
+
+
+        const saleFormDataCopy = {
+            ...saleFormData ,
+            imageUrls , 
+            timestamp : serverTimestamp() , 
+            useRef : auth.currentUser.uid
+        };
+        delete saleFormDataCopy.images;
+        !checkOffer && delete saleFormDataCopy.discountedPrice;
+        const docRef = await addDoc(collection(db , "sales") , saleFormDataCopy);
+        setLoading(false);
+        toast.success("Car submitted Successfully");
     };
+
+    if(loading) {
+        return (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh", 
+              }}
+          >
+            <ClipLoader color="white" size={50} />
+          </div>
+          )
+    }
 
 
   return (
@@ -121,6 +144,7 @@ const Sale = () => {
                         type="text"
                         placeholder="Model..." 
                         id="model"
+                        required
                         value={model}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -129,6 +153,7 @@ const Sale = () => {
                         type="number"
                         placeholder="Year..." 
                         id="year"
+                        required
                         value={year}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -137,6 +162,7 @@ const Sale = () => {
                         type="number"
                         placeholder="Mileage(Km)..." 
                         id="mileage"
+                        required
                         value={mileage}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -145,6 +171,7 @@ const Sale = () => {
                         type="text"
                         placeholder="VIN" 
                         id="vin"
+                        required
                         value={vin}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -153,6 +180,7 @@ const Sale = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                         defaultValue=""
                         id="condition"
+                        required
                         onChange={handleSaleFormInputChange}
                         value={condition}
                     >
@@ -166,6 +194,7 @@ const Sale = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                         defaultValue=""
                         id="mechanicalIssues"
+                        required
                         onChange={handleSaleFormInputChange}
                         value={mechanicalIssues}
                     >
@@ -177,6 +206,7 @@ const Sale = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                         defaultValue=""
                         id="accidentHistory"
+                        required
                         onChange={handleSaleFormInputChange}
                         value={accidentHistory}
                     >
@@ -193,6 +223,7 @@ const Sale = () => {
                         type="text"
                         placeholder="Exterior Color..." 
                         id="exteriorColor"
+                        required
                         value={exteriorColor}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -201,6 +232,7 @@ const Sale = () => {
                         type="text"
                         placeholder="Interior Color..." 
                         id="interiorColor"
+                        required
                         value={interiorColor}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -209,6 +241,7 @@ const Sale = () => {
                         type="text"
                         placeholder="Body Style(Sedan , PickUp)..."
                         id="bodyStyle"
+                        required
                         value={bodyStyle}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -217,6 +250,7 @@ const Sale = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                         defaultValue=""
                         id="brakes"
+                        required
                         onChange={handleSaleFormInputChange}
                         value={brakes}
                     >
@@ -228,6 +262,7 @@ const Sale = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                         defaultValue=""
                         id="navigation"
+                        required
                         onChange={handleSaleFormInputChange}
                         value={navigation}
                     >
@@ -239,6 +274,7 @@ const Sale = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                         defaultValue=""
                         id="transmission"
+                        required
                         onChange={handleSaleFormInputChange}
                         value={transmission}
                     >
@@ -250,6 +286,7 @@ const Sale = () => {
                         type="number"
                         placeholder="Engine Size(L)..." 
                         id="engineSize"
+                        required
                         value={engineSize}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -258,6 +295,7 @@ const Sale = () => {
                         type="text"
                         placeholder="Fuel Type..." 
                         id="fuelType"
+                        required
                         value={fuelType}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -280,6 +318,7 @@ const Sale = () => {
                         type="text"
                         placeholder="Location..." 
                         id="location"
+                        required
                         value={location}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -315,6 +354,7 @@ const Sale = () => {
                     </h1>
                     <input 
                         type="file" 
+                        required
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-white pl-4 py-2 font-semibold"
                     />
@@ -327,6 +367,7 @@ const Sale = () => {
                         type="text" 
                         placeholder="name..."
                         id="sellerName"
+                        required
                         value={sellerName}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -335,6 +376,7 @@ const Sale = () => {
                         type="text" 
                         placeholder="phone number..."
                         id="sellerPhoneNo"
+                        required
                         value={sellerPhoneNo}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
@@ -348,6 +390,7 @@ const Sale = () => {
                         type="number" 
                         placeholder="Regular Price..."
                         id="regularPrice"
+                        required
                         value={regularPrice}
                         onChange={handleSaleFormInputChange}
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
