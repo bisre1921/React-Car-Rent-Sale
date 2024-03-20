@@ -37,7 +37,6 @@ const Profile = () => {
             setCarListings(carListings);
             setLoading(false);
         };
-        console.log(loading);
         fetchUserProfile();
     } , [auth.currentUser.uid]);
 
@@ -57,23 +56,23 @@ const Profile = () => {
 
   return (
         <div className="text-white max-w-7xl mx-auto my-10">
-                <div className="flex flex-col justify-center items-center">
-                    <p className="text-lg mb-4 capitalize">
+                <div className="flex flex-col justify-center items-center mx-4 lg:mx-0">
+                    <p className="text-lg mb-4 capitalize text-center">
                         You can edit, delete, or update your name and posts here.
                     </p>
                     <input 
                         type="text" 
                         value={name}
                         disabled = {!allowEdit}
-                        className={`mb-6 w-[40%] rounded border transition ease-in-out px-4 py-2 ${allowEdit ? "text-black" : "bg-transparent"} `}
+                        className={`mb-6 w-full md:w-[50%] lg:w-[40%] rounded border transition ease-in-out px-4 py-2 ${allowEdit ? "text-black" : "bg-transparent"} `}
                     />
                     <input 
                         type="email"
                         value={email} 
                         disabled
-                        className="w-[40%] rounded border transition ease-in-out px-4 py-2 bg-transparent"
+                        className="w-full md:w-[50%]  lg:w-[40%] rounded border transition ease-in-out px-4 py-2 bg-transparent"
                     />
-                    <div className={`flex justify-between ${allowEdit ? "2xl:gap-20" : "2xl:gap-36"}  mb-6`}>
+                    <div className={`flex flex-col lg:flex-row items-center justify-between ${allowEdit ? "lg:gap-6 2xl:gap-20" : "lg:gap-12 2xl:gap-36"}  mb-6`}>
                         <p>
                             want to change your name and email? 
                             <span 
