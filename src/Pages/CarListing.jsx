@@ -75,7 +75,7 @@ const CarListing = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-8 max-w-6xl mx-auto mt-10">
             <div className="mx-4 xl:mx-0">
-                <h1 className="text-amber-700  text-center mb-4 text-xl">
+                <h1 className="text-amber-700  text-center mb-4 text-2xl lg:text-4xl font-bold">
                     Car Information
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 pl-4 rounded text-center md:mx-16 lg:mx-0">
@@ -100,7 +100,7 @@ const CarListing = () => {
                 </div>
             </div>
             <div className="mx-4 xl:mx-0">
-                <h1 className="text-amber-700 text-center mb-4 text-xl">
+                <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
                     Exterior and Interior features
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
@@ -131,7 +131,7 @@ const CarListing = () => {
                 </div>
             </div>
             <div className="mx-4 xl:mx-0">
-                <h1 className="text-amber-700 text-center mb-4 text-xl">
+                <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
                     Additional Detail of Cars
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 pl-4 rounded text-center md:mx-16 lg:mx-0">
@@ -158,7 +158,7 @@ const CarListing = () => {
                 </div>
             </div>
             <div className="mx-4 xl:mx-0">
-                <h1 className="text-amber-700 text-center mb-4 text-xl">
+                <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
                     Seller Contact
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
@@ -171,7 +171,7 @@ const CarListing = () => {
                 </div>
             </div>
             <div className="mx-4 xl:mx-0">
-                <h1 className="text-amber-700 text-center mb-4 text-xl">
+                <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
                     Car Price
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">

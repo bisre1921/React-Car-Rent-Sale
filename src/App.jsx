@@ -13,6 +13,7 @@ import BuyRent from "./Pages/BuyRent";
 import Sale from "./Pages/Sale";
 import PrivateRoute from "./Components/PrivateRoute";
 import CarListing from "./Pages/CarListing";
+import Profile from "./Pages/Profile";
 
 const App = () => {
 
@@ -38,11 +39,14 @@ const App = () => {
           <Route path="/" element={<FrontPage loggedIn={loggedIn} />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} /> 
-          <Route path="sale" element={<PrivateRoute />}>
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/profile" element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route> 
+          <Route path="/sale" element={<PrivateRoute />}>
             <Route path="/sale" element={<Sale />} />
           </Route>
-          <Route path="buy-rent" element={<PrivateRoute />}>
+          <Route path="/buy-rent" element={<PrivateRoute />}>
             <Route path="/buy-rent" element={<BuyRent />} />
           </Route>
           <Route path="/car/:carId" element={<CarListing />} />

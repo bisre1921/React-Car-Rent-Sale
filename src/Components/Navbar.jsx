@@ -126,9 +126,9 @@ const Navbar = ({loggedIn}) => {
                                         Sign In
                                     </li>
                             ) : (
-                                    <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-in") && "active text-black md:text-amber-700"}  `} 
+                                    <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/profile") && "active text-black md:text-amber-700"}  `} 
                                     onClick={() => {
-                                        navigate("")
+                                        navigate("/profile")
                                         setIsMenuClicked(false)
                                         }}>
                                         {name}
