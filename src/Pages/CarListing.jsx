@@ -8,12 +8,14 @@ import ClipLoader from "react-spinners/ClipLoader";
 import SwiperCore, { EffectFade , Autoplay , Navigation,  Pagination} from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/bundle"; 
+import ContactSeller from "../Components/ContactSeller";
 
 const CarListing = () => {
     const auth = getAuth();
     const params = useParams();
     const [car , setCar] = useState(null);
     const [loading , setLoading] = useState(true);
+    const [contactSeller , setContactSeller] = useState(false);
     SwiperCore.use([Autoplay, Navigation, Pagination]);
 
     useEffect(() => {
@@ -28,6 +30,10 @@ const CarListing = () => {
         fetchCar();
     } ,[]);
 
+    const handleContactSeller = () => {
+        setContactSeller((prevState) => !prevState);
+    };
+
     if(loading) {
         return (
             <div
@@ -41,8 +47,7 @@ const CarListing = () => {
             <ClipLoader color="white" size={50} />
           </div>
           )
-    }
-    
+    } else 
     return (
     <div className="text-white mx-auto mb-10">
         <div className="flex items-center justify-center">
@@ -173,7 +178,7 @@ const CarListing = () => {
             </div>
             <div className="mx-4 xl:mx-0">
                 <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
-                    Seller Contact
+                    Seller Address
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
                     <h3 className="font-bold mb-2 text-xl">
@@ -184,6 +189,27 @@ const CarListing = () => {
                     </h3>
                 </div>
             </div>
+            <div>
+                {auth.currentUser.uid !== car.useRef && (
+                    <div>
+                        <div className="flex items-start justify-center">
+                                <button 
+                                    className="bg-amber-700 px-4 py-2 rounded hover:bg-transparent hover:border transition duration-200"
+                                    onClick={handleContactSeller}
+                                >
+                                    Contact Seller
+                                </button>
+                            </div>
+                            {contactSeller && (
+                                <ContactSeller
+                                    car={car} 
+                                    useRef = {car.useRef}
+                                    />
+                            )}
+                    </div>
+                )}
+            </div>
+            
         </div>
         
     </div>
