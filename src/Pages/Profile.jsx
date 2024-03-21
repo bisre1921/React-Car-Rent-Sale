@@ -1,9 +1,10 @@
-import {getAuth} from "firebase/auth";
+import {getAuth, updateProfile} from "firebase/auth";
 import { useEffect } from "react";
 import {db} from "../firebase";
-import { collection , getDocs, orderBy, query, where } from "firebase/firestore";
+import { collection , doc, getDocs, orderBy, query, updateDoc, where } from "firebase/firestore";
 import { useState } from "react";
 import CarListingItem from "../Components/CarListingItem";
+import {toast} from "react-toastify";
 
 const Profile = () => {
     const [carListings , setCarListings] = useState(null);
@@ -48,11 +49,35 @@ const Profile = () => {
     };
 
     const handleAllowEdit = (event) => {
-        event.preventDefault();
         setAllowEdit((prevState) => {
             setAllowEdit(!prevState);
         })
     };
+
+    const handleEditInputChange = (event) => {
+        setProfileData((prevState) => ({
+            ...prevState , 
+            [event.target.id] : event.target.value
+        }))
+    };
+
+    const handleEditSubmit = async (event) => {
+        try {
+            if(auth.currentUser.displayName !== name) {
+                await updateProfile(auth.currentUser , {
+                    displayName : name
+                });
+                
+                const docRef = doc(db , "users" , auth.currentUser.uid);
+                await updateDoc(docRef , {
+                    name : name
+                });
+                toast.success("Profile updated successfully");
+            }
+        } catch (error) {
+            toast.error("Error updating profile. Please try again.")
+        }
+    }
 
   return (
         <div className="text-white max-w-7xl mx-auto my-10">
@@ -64,22 +89,28 @@ const Profile = () => {
                         type="text" 
                         value={name}
                         disabled = {!allowEdit}
+                        id="name"
+                        onChange={handleEditInputChange}
                         className={`mb-6 w-full md:w-[50%] lg:w-[40%] rounded border transition ease-in-out px-4 py-2 ${allowEdit ? "text-black" : "bg-transparent"} `}
                     />
                     <input 
                         type="email"
                         value={email} 
                         disabled
+                        id="email"
                         className="w-full md:w-[50%]  lg:w-[40%] rounded border transition ease-in-out px-4 py-2 bg-transparent"
                     />
-                    <div className={`flex flex-col lg:flex-row items-center justify-between ${allowEdit ? "lg:gap-6 2xl:gap-20" : "lg:gap-12 2xl:gap-36"}  mb-6`}>
+                    <div className={`flex justify-between gap-8 lg:gap-12 2xl:gap-36  mb-6`}>
                         <p>
-                            want to change your name and email? 
+                            want to change your name? 
                             <span 
                                 className="pl-2 text-amber-700 cursor-pointer"
-                                onClick={handleAllowEdit}
+                                onClick={() => {
+                                    handleAllowEdit();
+                                    handleEditSubmit()
+                                }}
                             >
-                                {allowEdit ? "Apply change" : "Edit"}
+                                {allowEdit ? "Save" : "Edit"}
                             </span>
                         </p>
                         <p className="text-amber-700 cursor-pointer">
