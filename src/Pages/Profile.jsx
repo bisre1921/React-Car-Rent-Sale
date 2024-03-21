@@ -5,6 +5,7 @@ import { collection , doc, getDocs, orderBy, query, updateDoc, where } from "fir
 import { useState } from "react";
 import CarListingItem from "../Components/CarListingItem";
 import {toast} from "react-toastify";
+import {useNavigate} from "react-router-dom";
 
 const Profile = () => {
     const [carListings , setCarListings] = useState(null);
@@ -13,6 +14,7 @@ const Profile = () => {
     const [allowEdit , setAllowEdit] = useState(false);
     
     const auth = getAuth();
+    const navigate = useNavigate();
     const [profileData , setProfileData] = useState({
         name : auth.currentUser.displayName , 
         email : auth.currentUser.email
@@ -77,6 +79,11 @@ const Profile = () => {
         } catch (error) {
             toast.error("Error updating profile. Please try again.")
         }
+    };
+
+    const handleSignOut = () => {
+        auth.signOut();
+        navigate("/");
     }
 
   return (
@@ -113,7 +120,10 @@ const Profile = () => {
                                 {allowEdit ? "Save" : "Edit"}
                             </span>
                         </p>
-                        <p className="text-amber-700 cursor-pointer">
+                        <p 
+                            className="text-amber-700 cursor-pointer"
+                            onClick={handleSignOut}
+                        >
                             Sign Out
                         </p>
                     </div>
