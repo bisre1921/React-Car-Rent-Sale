@@ -1,7 +1,12 @@
 import Moment from "react-moment";
 import { FaLocationDot } from "react-icons/fa6";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { useState } from "react";
 
-const CarListingItem = ({carListing}) => {
+const CarListingItem = ({carListing , id , editPost , deletePost}) => {
+    const [isEditHovering, setIsEditHovering] = useState(false);
+    const [isDeleteHovering, setIsDeleteHovering] = useState(false);
   return (
     <div className="relative bg-zinc-900 shadow-2xl  py-4 px-2 rounded text-center md:mx-16 lg:mx-0 cursor-pointer" >
         <div>
@@ -42,18 +47,40 @@ const CarListingItem = ({carListing}) => {
                 </h1> 
             </div>
         </div>
-        <div className="text-start text-amber-700">
-            {carListing.warranty && (
+        <div className="flex justify-between items-center text-start text-amber-700">
+            <div>
+                {carListing.warranty && (
+                    <h1>
+                        <span className="font-semibold">Warranty :</span> {carListing.warranty}
+                    </h1>
+                )}
                 <h1>
-                    <span className="font-semibold">Warranty :</span> {carListing.warranty}
+                <span className="font-semibold">Mileage :</span>  {carListing.mileage}km
                 </h1>
-            )}
-            <h1>
-               <span className="font-semibold">Mileage :</span>  {carListing.mileage}km
-            </h1>
-            <h1>
-                {carListing.bodyStyle}
-            </h1>
+                <h1>
+                    {carListing.bodyStyle}
+                </h1>
+            </div>
+            <div className="flex gap-2 ">
+                <div 
+                    onMouseEnter={() => setIsEditHovering(true)} 
+                    onMouseLeave={() => setIsEditHovering(false)}
+                    className=""
+                    onClick={() => editPost(carListing.id)}
+                >
+                    <MdEdit className="text-xl text-blue-600" />
+                    {isEditHovering && <span className="absolute right-10 text-white">Edit</span>}
+                </div>
+                <div 
+                    onMouseEnter={() => setIsDeleteHovering(true)} 
+                    onMouseLeave={() => setIsDeleteHovering(false)}
+                    className="relative"
+                    onClick={() => deletePost(carListing.id)}
+                >
+                    <MdDelete className="text-red-600 text-xl"/>
+                    {isDeleteHovering && <span className="absolute right-0 text-white">Delete</span>}
+                </div>
+            </div>
         </div>
     </div>
   )

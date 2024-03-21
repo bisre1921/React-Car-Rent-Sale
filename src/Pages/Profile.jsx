@@ -1,7 +1,7 @@
 import {getAuth, updateProfile} from "firebase/auth";
 import { useEffect } from "react";
 import {db} from "../firebase";
-import { collection , doc, getDocs, orderBy, query, updateDoc, where } from "firebase/firestore";
+import { collection , deleteDoc, doc, getDocs, orderBy, query, updateDoc, where } from "firebase/firestore";
 import { useState } from "react";
 import CarListingItem from "../Components/CarListingItem";
 import {toast} from "react-toastify";
@@ -84,6 +84,18 @@ const Profile = () => {
     const handleSignOut = () => {
         auth.signOut();
         navigate("/");
+    };
+
+    const deletePost = async(listingId) => {
+        if(window.confirm("Do you Want to delete your post?")) {
+            const docRef = doc(db , "sales" , listingId);
+            await deleteDoc(docRef);
+            const updatedCarListing = carListings.filter((carListing) => {
+                carListing.id !== listingId
+            });
+            setCarListings(updatedCarListing);
+            toast.success("Successfully deleted the Car listing");
+        }
     }
 
   return (
@@ -140,6 +152,9 @@ const Profile = () => {
                             <CarListingItem 
                                 carListing = {carListing.data}
                                 key={carListing.id}
+                                id={carListing.id}
+                                deletePost = {() => deletePost(carListing.id)}
+                                editPost = {() => editPost(carListing.id)}
                              />
                         ))}
                     </div>
