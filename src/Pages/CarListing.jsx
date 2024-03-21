@@ -159,19 +159,6 @@ const CarListing = () => {
             </div>
             <div className="mx-4 xl:mx-0">
                 <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
-                    Seller Contact
-                </h1>
-                <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
-                    <h3 className="font-bold mb-2 text-xl">
-                        Seller Name : <span className="text-gray-400 font-semibold text-md">{car.sellerName}</span> 
-                    </h3>
-                    <h3 className="font-bold mb-2 text-xl">
-                        Seller Phone Number : <span className="text-gray-400 font-semibold text-md">{car.sellerPhoneNo}</span> 
-                    </h3>
-                </div>
-            </div>
-            <div className="mx-4 xl:mx-0">
-                <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
                     Car Price
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
@@ -183,6 +170,19 @@ const CarListing = () => {
                     </h3>
                 </div>
                
+            </div>
+            <div className="mx-4 xl:mx-0">
+                <h1 className="text-amber-700 text-center mb-4  text-2xl lg:text-4xl font-bold">
+                    Seller Contact
+                </h1>
+                <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
+                    <h3 className="font-bold mb-2 text-xl">
+                        Seller Name : <span className="text-gray-400 font-semibold text-md">{car.sellerName}</span> 
+                    </h3>
+                    <h3 className="font-bold mb-2 text-xl">
+                        Seller Phone Number : <span className="text-gray-400 font-semibold text-md">{car.sellerPhoneNo}</span> 
+                    </h3>
+                </div>
             </div>
         </div>
         
