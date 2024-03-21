@@ -96,7 +96,12 @@ const Profile = () => {
             setCarListings(updatedCarListing);
             toast.success("Successfully deleted the Car listing");
         }
-    }
+    };
+
+    const editPost = (listingId) => {
+        navigate(`/edit-carListing/${listingId}`)
+    };
+    
 
   return (
         <div className="text-white max-w-7xl mx-auto my-10">

@@ -14,6 +14,7 @@ import Sale from "./Pages/Sale";
 import PrivateRoute from "./Components/PrivateRoute";
 import CarListing from "./Pages/CarListing";
 import Profile from "./Pages/Profile";
+import EditCarListing from "./Pages/EditCarListing";
 
 const App = () => {
 
@@ -50,6 +51,9 @@ const App = () => {
             <Route path="/buy-rent" element={<BuyRent />} />
           </Route>
           <Route path="/car/:carId" element={<CarListing />} />
+          <Route path="/edit-carListing/:listingId" element={<PrivateRoute />}>
+            <Route path="/edit-carListing/:listingId" element={<EditCarListing />} />
+          </Route>
         </Routes>
       </Router>
       <ToastContainer
