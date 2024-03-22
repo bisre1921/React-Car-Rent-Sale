@@ -15,6 +15,8 @@ import PrivateRoute from "./Components/PrivateRoute";
 import CarListing from "./Pages/CarListing";
 import Profile from "./Pages/Profile";
 import EditCarListing from "./Pages/EditCarListing";
+import Buy from "./Pages/Buy";
+import Rent from "./Pages/Rent";
 
 const App = () => {
 
@@ -54,6 +56,8 @@ const App = () => {
           <Route path="/edit-carListing/:listingId" element={<PrivateRoute />}>
             <Route path="/edit-carListing/:listingId" element={<EditCarListing />} />
           </Route>
+          <Route path="/buy" element={<Buy />} />
+          <Route path="/rent" element={<Rent />} />
         </Routes>
       </Router>
       <ToastContainer

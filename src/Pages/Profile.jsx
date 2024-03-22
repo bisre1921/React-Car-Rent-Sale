@@ -95,6 +95,7 @@ const Profile = () => {
             });
             setCarListings(updatedCarListing);
             toast.success("Successfully deleted the Car listing");
+            navigate("/profile");
         }
     };
 
@@ -148,7 +149,7 @@ const Profile = () => {
                         onClick={handleShowPost}
                         className="w-[300px] text-2xl font-bold border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
                     >
-                        {(showPosts && carListings.length > 0) ? "Hide My Posts" : "Show My Posts"}
+                        {(showPosts && carListings?.length > 0) ? "Hide My Posts" : "Show My Posts"}
                     </button>
                     {!loading && showPosts && carListings.length === 0 && (
                         <h1 className="text-white">You don't have any posts yet</h1>
