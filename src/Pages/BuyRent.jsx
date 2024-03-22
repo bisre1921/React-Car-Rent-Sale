@@ -29,11 +29,12 @@ const BuyRent = () => {
     };
     fetchCarListing();
   });
+  
   return (
     <div className="text-white max-w-7xl mx-auto my-10">
       <div>
         <h1 className="text-center mb-8">
-          You an Select the car which you want to buy
+          You can Select the car which you want to buy
         </h1>
       </div>
       {!loading && carListings.length > 0 && (

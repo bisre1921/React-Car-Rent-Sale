@@ -167,12 +167,34 @@ const CarListing = () => {
                     Car Price
                 </h1>
                 <div className ="flex flex-col items-start bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
-                    <h3 className="font-bold mb-2 text-xl">
-                        Regular Price : <span className="text-gray-400 font-semibold text-md">${car.regularPrice}</span> 
+                    <h3 className="flex font-bold mb-2 text-xl">
+                        <div>
+                            Regular Price : <span className="text-gray-400 font-semibold text-md">${car.regularPrice}</span>
+                        </div>
+                         <div>
+                            {car.type == "rent" && (
+                                <p>
+                                    {car.rentalPeriod}
+                                </p>
+                            )}
+                         </div>
                     </h3>
-                    <h3 className="font-bold mb-2 text-xl">
-                        Discount Price : <span className="text-gray-400 font-semibold text-md">${car.discountedPrice}</span> 
-                    </h3>
+                    {car.discountedPrice && (
+                         <h3 className="flex font-bold mb-2 text-xl">
+                            <div>
+                                Discount Price : <span className="text-gray-400 font-semibold text-md">${car.discountedPrice}</span>
+                            </div>
+                            <div>
+                                {car.type == "rent" && (
+                                    <p>
+                                        {car.rentalPeriod}
+                                    </p>
+                                )}
+                            </div>
+                            
+                        </h3>
+                    )}
+                   
                 </div>
                
             </div>

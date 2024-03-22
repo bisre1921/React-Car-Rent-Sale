@@ -5,9 +5,10 @@ import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 import {Link} from "react-router-dom";
 
-const CarListingItem = ({carListing , id , editPost , deletePost}) => {
+const CarListingItem = ({carListing , id , editPost , deletePost , type}) => {
     const [isEditHovering, setIsEditHovering] = useState(false);
     const [isDeleteHovering, setIsDeleteHovering] = useState(false);
+    console.log(type);
   return (
     <Link to={`/car/${id}`}>
         <div className="relative bg-zinc-900 shadow-2xl  py-4 px-2 rounded text-center md:mx-16 lg:mx-0 cursor-pointer" >
@@ -30,15 +31,53 @@ const CarListingItem = ({carListing , id , editPost , deletePost}) => {
                     </Moment>
                 )}
             </div>
+            {type && (
+                 <div className="absolute top-[70px] right-3 bg-amber-700 rounded px-2 py-1">
+                    {type}
+                </div>
+            )}
+           {!type && (
+                <div className="absolute top-[70px] right-3 bg-amber-700 rounded px-2 py-1">
+                    {carListing.type == "rent" && (
+                        <p>
+                            Rent
+                        </p>
+                    )}
+                    {carListing.type == "sale" && (
+                        <p>
+                            Buy
+                        </p>
+                    )}
+                </div>
+           )}
+            
             <div className="flex justify-between mt-2">
                 <div>
                     {carListing.discountedPrice ? (
-                        <h1 className="font-bold text-lg ">
-                            ${carListing.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        <h1 className="flex font-bold text-lg ">
+                            <div>
+                                ${carListing.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </div>
+                            <div>
+                                {carListing.type == "rent" && (
+                                <p>
+                                    {carListing.rentalPeriod}
+                                </p>
+                                )}
+                            </div>
                         </h1>
                     ) : (
-                        <h1 className="font-bold text-lg">
-                            ${carListing.regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        <h1 className="flex font-bold text-lg">
+                            <div>
+                                ${carListing.regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </div>
+                            <div>
+                                {carListing.type == "rent" && (
+                                    <p>
+                                        {carListing.rentalPeriod}
+                                    </p>
+                                )}
+                            </div>
                         </h1>
                     )}
                 </div>

@@ -35,10 +35,12 @@ const Sale = () => {
         sellerName : "" , 
         sellerPhoneNo : "" , 
         images : {} , 
-        regularPrice : 0 , 
-        discountedPrice : 0 ,
+        type: "sale" ,
+        rentalPeriod : "" , 
+        regularPrice : "" , 
+        discountedPrice : "" ,
     })
-    const {model , year , mileage , vin , exteriorColor , interiorColor , bodyStyle , engineSize , fuelType , description , location , history , warranty , modification , sellerName , sellerPhoneNo , images , regularPrice , discountedPrice , condition , mechanicalIssues , accidentHistory , brakes , navigation , transmission} = saleFormData;
+    const {model , year , mileage , vin , exteriorColor , interiorColor , bodyStyle , engineSize , fuelType , description , location , history , warranty , modification , sellerName , sellerPhoneNo , images , type , rentalPeriod , regularPrice , discountedPrice , condition , mechanicalIssues , accidentHistory , brakes , navigation , transmission} = saleFormData;
 
     const [loading , setLoading] = useState(false);
     const [checkOffer , setCheckOffer] = useState(false);
@@ -110,6 +112,8 @@ const Sale = () => {
         navigate(`/car/${docRef.id}`)
     };
 
+    console.log(type);
+
     if(loading) {
         return (
             <div
@@ -130,10 +134,10 @@ const Sale = () => {
     <div className="text-white max-w-6xl mx-auto mt-10 mb-10">
         <div className="text-center">
             <h1 className="text-3xl lg:text-6xl font-bold mb-4">
-                <span className="text-amber-700">Sell</span> Your Car
+                <span className="text-amber-700">Sell OR Rent</span> Your Car
             </h1>
             <h3 className="text-xl lg:text-3xl font-semibold mb-8">
-                List Your Car <span className="text-amber-700">for Sale</span> 
+                List Your Car <span className="text-amber-700">for Sale / Rent</span> 
             </h3>
         </div>
         <div>
@@ -390,32 +394,87 @@ const Sale = () => {
                     <h1 className="text-center mb-4 text-xl">
                         Price
                     </h1>
-                    <input 
-                        type="number" 
-                        placeholder="Regular Price..."
-                        id="regularPrice"
-                        required
-                        value={regularPrice}
-                        onChange={handleSaleFormInputChange}
-                        className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
-                    />
-                    <button 
-                        className="border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
-                        onClick={setOffer}
-                    >
-                        {checkOffer ? "No offer" : "With Offer"}
-                    </button>
-                    {checkOffer && (
-                        <input 
-                            type="number" 
-                            placeholder="Discounted Price..."
-                            id="discountedPrice"
-                            required
-                            value={discountedPrice}
-                            onChange={handleSaleFormInputChange}
+                    <h1 className="text-start">
+                        SALE / RENT
+                    </h1>
+                    <div className="flex gap-4 justify-around mb-2 mt-2 mx-8">
+                        <button 
+                            value="sale"
+                            id="type"
+                            onClick={handleSaleFormInputChange}
+                            type="button"
+                            className={`w-[300px]  font-bold border rounded px-2 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4 ${type == "sale" ? "bg-transparent" : ""} `}
+                        >
+                            SALE
+                        </button>
+                        <button 
+                            value="rent"
+                            id="type"
+                            onClick={handleSaleFormInputChange}
+                            type="button"
+                            className={`w-[300px] font-bold border rounded px-2 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4 ${type == "rent" ? "bg-transparent" : ""} `}
+                            
+                        >
+                            RENT
+                        </button>
+                    </div>
+                    {type == "rent" && (
+                        <select
                             className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
-                        />
+                            defaultValue=""
+                            id="rentalPeriod"
+                            required
+                            onChange={handleSaleFormInputChange}
+                            value={rentalPeriod}
+                        >
+                            <option value="" disabled>Select Rental Period</option> {/* Placeholder */}
+                            <option value="/Month">/Month</option>
+                            <option value="/Week">/Week</option>
+                            <option value="/15 Days">/15 Days</option>
+                            <option value="/3 Days">/3 Days</option>
+                            <option value="/Day">/Day</option>
+                        </select>
                     )}
+                    <div>
+                            <input 
+                                type="number" 
+                                placeholder="Regular Price..."
+                                id="regularPrice"
+                                required
+                                value={regularPrice}
+                                onChange={handleSaleFormInputChange}
+                                className={`border-white rounded w-[300px] md:w-[500px] lg:w-full ${type == "rent" ? "mb-0" : "mb-4"} text-black pl-4 py-2 font-semibold`}
+                            />
+                            {type == "rent" && (
+                                <p className="text-xl font-bold mb-2">
+                                    {rentalPeriod}
+                                </p>
+                            )}
+                            <button 
+                                className="border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
+                                onClick={setOffer}
+                            >
+                                {checkOffer ? "No offer" : "With Offer"}
+                            </button>
+                            {checkOffer && (
+                                <div>
+                                    <input 
+                                        type="number" 
+                                        placeholder="Discounted Price..."
+                                        id="discountedPrice"
+                                        required
+                                        value={discountedPrice}
+                                        onChange={handleSaleFormInputChange}
+                                        className={`border-white rounded w-[300px] md:w-[500px] lg:w-full ${type == "rent" ? "mb-0" : "mb-4"} text-black pl-4 py-2 font-semibold`}
+                                    />
+                                    {type == "rent" && (
+                                        <p className="text-xl font-bold mb-2">
+                                            {rentalPeriod}
+                                        </p>
+                                    )}
+                               </div>
+                            )}
+                    </div>
                 </div>
                 </div>
                 <div className="flex justify-center items-center mt-8">
