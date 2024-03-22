@@ -61,16 +61,16 @@ const BuyRent = () => {
   return (
     <div className="text-white max-w-7xl mx-auto my-10">
       <div>
-        <h1 className="text-center mb-8">
+        <h1 className="text-center text-xl lg:text-3xl font-semibold mb-8">
           Buy OR Rent
         </h1>
       </div>
       <div className="mb-16">
         <div className="mb-4">
-          <h1 className="">
+          <h1 className="text-xl font-bold">
             You can Select the car which you want to buy
           </h1>
-          <Link to="/buy">
+          <Link className="font-semibold text-blue-600 hover:text-blue-900 transition duration-200" to="/buy">
             Show More Cars to Buy
           </Link>
         </div>
@@ -93,7 +93,7 @@ const BuyRent = () => {
           <h1 className="">
             You can Select the car which you want to Rent
           </h1>
-          <Link to="/rent">
+          <Link className="font-semibold text-blue-600 hover:text-blue-900 transition duration-200" to="/rent">
             Show More Cars to Rent
           </Link>
         </div>

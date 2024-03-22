@@ -76,7 +76,7 @@ const Rent = () => {
 
   return (
     <div className="text-white max-w-7xl mx-auto my-10">
-        <h1 className="text-center mb-4 text-xl">
+        <h1 className="text-center text-xl lg:text-3xl font-semibold mb-8">
             Rent Cars here
         </h1>
         {!loading && carListings.length > 0 && (
@@ -94,9 +94,10 @@ const Rent = () => {
             </div>
             <div>
                 {lastFetchedDoc && (
-                    <div>
+                    <div className="flex justify-center items-center mt-8">
                         <button
                                 onClick={handleFetchMoreCars}
+                                className="w-[200px] font-bold border rounded px-0 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
                         >
                             Load more
                         </button>
