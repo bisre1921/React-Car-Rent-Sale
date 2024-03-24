@@ -71,7 +71,7 @@ const Navbar = ({loggedIn , handleThemeClicked , theme}) => {
     }
   return (
         <nav className={`${isScrolling && !theme ? "bg-zinc-800" : ""} ${isScrolling && theme ? "bg-zinc-200" : ""} sticky top-0 z-50 ${theme ? "text-black" : "text-white"} `}>
-            <div className={`flex max-w-6xl mx-auto justify-between  ${isMenuClicked ? "items-start bg-amber-700" : "items-center"} `}>
+            <div className={`flex max-w-6xl mx-auto justify-between  ${isMenuClicked ? "items-start  text-white bg-amber-700" : "items-center"} `}>
                 <div>
                     <img 
                         src={logo} 
@@ -154,31 +154,52 @@ const Navbar = ({loggedIn , handleThemeClicked , theme}) => {
                                     Sign out
                                 </li>
                             )}
+                            {window.innerWidth >= 768 && (
+                                <li 
+                                        onClick={() => {
+                                            handleThemeClicked()
+                                            setIsMenuClicked(false)
+                                        } } 
+                                        className="text-xl cursor-pointer"
+                                    >
+                                        {theme ? (
+                                            <IoMoon />
+                                        ) : (
+                                            <IoMdSunny />
+                                        )}     
+                                </li>
+                            )}
+                             
                             
-                            <li 
-                                onClick={() => {
-                                    handleThemeClicked()
-                                    setIsMenuClicked(false)
-                                } } 
-                                className="text-xl cursor-pointer"
-                            >
-                                {theme ? (
-                                    <IoMoon />
-                                ) : (
-                                    <IoMdSunny />
-                                )}
-                                
-                            </li>
                         </ul>
                     </div>
                 </div>
-                <div className="flex md:hidden" onClick={handleMenuClicked}>
-                    {isMenuClicked ? (
-                        <TbLetterX className="text-4xl" />
-                    ) : (
-                        <IoMenu className="text-4xl" />
-                    )}
+                <div className="flex md:hidden items-center" >
                     
+                    {window.innerWidth < 768 && !isMenuClicked && (
+                        <div 
+                            onClick={() => {
+                                handleThemeClicked()
+                                // setIsMenuClicked(false)
+                            } } 
+                            className="text-xl cursor-pointer pr-2"
+                        >
+                            {theme ? (
+                                <IoMoon />
+                            ) : (
+                                <IoMdSunny />
+                            )}     
+                        </div> 
+                    
+                    )}
+                    <div className=" md:hidden" onClick={handleMenuClicked}>
+                        {isMenuClicked ? (
+                            <TbLetterX className="text-4xl" />
+                        ) : (
+                            <IoMenu className="text-4xl" />
+                        )}
+                    </div>
+                   
                 </div>
             </div>
         </nav>
