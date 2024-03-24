@@ -6,7 +6,7 @@ import {toast} from "react-toastify"
 import CarListingItem from "../Components/CarListingItem"
 import ClipLoader from "react-spinners/ClipLoader";
 
-const Buy = () => {
+const Buy = ({theme}) => {
     const [carListings  , setCarListings] = useState(null);
     const [loading , setLoading] = useState(true);
     const [lastFetchedDoc , setLastFetchedDoc] = useState(null);
@@ -75,7 +75,7 @@ const Buy = () => {
     }
 
   return (
-    <div className="text-white max-w-7xl mx-auto my-10">
+    <div className={`${theme ? "text-black": "text-white"} max-w-7xl mx-auto my-10`}>
         <h1 className="text-center text-xl lg:text-3xl font-semibold mb-8">
             Buy Cars here
         </h1>
@@ -88,6 +88,7 @@ const Buy = () => {
                             key={carListing.id}
                             id={carListing.id}
                             carListing={carListing.data}
+                            theme={theme}
                         />
                     )
                 })}
@@ -97,7 +98,7 @@ const Buy = () => {
                     <div className="flex justify-center items-center mt-8">
                         <button
                                 onClick={handleFetchMoreCars}
-                                className="w-[200px] font-bold border rounded px-0 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
+                                className="w-[200px] font-bold border rounded px-0 py-1 text-white bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
                         >
                             Load more...
                         </button>

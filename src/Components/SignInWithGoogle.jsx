@@ -5,7 +5,7 @@ import {toast} from "react-toastify";
 import { db } from "../firebase";
 import {Link , useNavigate} from "react-router-dom";
 
-const SignInWithGoogle = () => {
+const SignInWithGoogle = ({theme}) => {
   const navigate = useNavigate();
   const handleSignInWithGoogle = async(event) => {
     event.preventDefault();
@@ -30,7 +30,7 @@ const SignInWithGoogle = () => {
   }
   return (
       <button 
-        className="w-full bg-zinc-900 py-2 rounded hover:bg-zinc-700 transition duration-150 flex justify-center items-center gap-2"
+        className={`w-full ${theme ? "bg-zinc-200" : "bg-zinc-900"}  py-2 rounded hover:bg-zinc-700 transition duration-150 flex justify-center items-center gap-2`}
         onClick={handleSignInWithGoogle}
       >
         <FcGoogle className="text-2xl" />

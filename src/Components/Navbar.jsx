@@ -5,8 +5,10 @@ import {useNavigate , useLocation} from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import { TbLetterX } from "react-icons/tb";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { IoMdSunny } from "react-icons/io";
+import { IoMoon } from "react-icons/io5";
 
-const Navbar = ({loggedIn}) => {
+const Navbar = ({loggedIn , handleThemeClicked , theme}) => {
     const [activeSection , setActiveSection] = useState("home");
     const [isMenuClicked , setIsMenuClicked] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
@@ -16,7 +18,7 @@ const Navbar = ({loggedIn}) => {
     const handleMenuClicked = () => {
         setIsMenuClicked(!isMenuClicked);
     }
-
+    
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -35,7 +37,7 @@ const Navbar = ({loggedIn}) => {
               setActiveSection("about");
             } else if (scrollPosition >= 1400 && scrollPosition < 2300) {
               setActiveSection("testimonials");
-            } else {
+            } else if(scrollPosition >= 2300) {
               setActiveSection("contact");
             }
 
@@ -68,7 +70,7 @@ const Navbar = ({loggedIn}) => {
         console.log("finished");
     }
   return (
-        <nav className={`${isScrolling ? "bg-zinc-800" : ""} sticky top-0 z-50 text-white`}>
+        <nav className={`${isScrolling && !theme ? "bg-zinc-800" : ""} ${isScrolling && theme ? "bg-zinc-200" : ""} sticky top-0 z-50 ${theme ? "text-black" : "text-white"} `}>
             <div className={`flex max-w-6xl mx-auto justify-between  ${isMenuClicked ? "items-start bg-amber-700" : "items-center"} `}>
                 <div>
                     <img 
@@ -116,7 +118,7 @@ const Navbar = ({loggedIn}) => {
                         </ul>
                     </div>
                     <div className="md:ml-16 lg:ml-40 xl:ml-60">
-                        <ul className={`flex flex-col md:flex-row gap-6 ${isMenuClicked ? 'justify-center items-center' : ''}`}>
+                        <ul className={`flex flex-col items-center md:flex-row gap-6 ${isMenuClicked ? 'justify-center items-center' : ''}`}>
                             {!loggedIn ? (
                                     <li className={` cursor-pointer hover:text-amber-700 hover:tracking-wide transition duration-150  ${PathName("/sign-in") && "active text-black md:text-amber-700"}  `} 
                                     onClick={() => {
@@ -153,6 +155,20 @@ const Navbar = ({loggedIn}) => {
                                 </li>
                             )}
                             
+                            <li 
+                                onClick={() => {
+                                    handleThemeClicked()
+                                    setIsMenuClicked(false)
+                                } } 
+                                className="text-xl cursor-pointer"
+                            >
+                                {theme ? (
+                                    <IoMoon />
+                                ) : (
+                                    <IoMdSunny />
+                                )}
+                                
+                            </li>
                         </ul>
                     </div>
                 </div>

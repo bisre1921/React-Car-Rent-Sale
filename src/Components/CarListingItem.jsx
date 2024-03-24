@@ -5,13 +5,13 @@ import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 import {Link} from "react-router-dom";
 
-const CarListingItem = ({carListing , id , editPost , deletePost , type}) => {
+const CarListingItem = ({carListing , id , editPost , deletePost , type , theme}) => {
     const [isEditHovering, setIsEditHovering] = useState(false);
     const [isDeleteHovering, setIsDeleteHovering] = useState(false);
     console.log(type);
   return (
     <Link to={`/car/${id}`}>
-        <div className="relative bg-zinc-900 shadow-2xl  py-4 px-2 rounded text-center md:mx-16 lg:mx-0 cursor-pointer" >
+        <div className={`relative ${theme ? "bg-zinc-200" : "bg-zinc-900"} shadow-2xl  py-4 px-2 rounded text-center md:mx-16 lg:mx-0 cursor-pointer`} >
             <div>
                 <h1 className="text-lg lg:text-2xl font-bold mb-4">
                     {carListing.model} <span> {carListing.year}</span>
@@ -24,7 +24,7 @@ const CarListingItem = ({carListing , id , editPost , deletePost , type}) => {
                     className="h-[200px] w-full"
                 />
             </div>
-            <div className="absolute top-[70px] left-3 bg-amber-700 rounded px-2 py-1">
+            <div className="absolute top-[70px] left-3 text-white bg-amber-700 rounded px-2 py-1">
                 {carListing.timestamp && (
                     <Moment fromNow>
                         {carListing.timestamp.toDate()}
@@ -32,12 +32,12 @@ const CarListingItem = ({carListing , id , editPost , deletePost , type}) => {
                 )}
             </div>
             {type && (
-                 <div className="absolute top-[70px] right-3 bg-amber-700 rounded px-2 py-1">
+                 <div className="absolute top-[70px] right-3 text-white bg-amber-700 rounded px-2 py-1">
                     {type}
                 </div>
             )}
            {!type && (
-                <div className="absolute top-[70px] right-3 bg-amber-700 rounded px-2 py-1">
+                <div className="absolute top-[70px] right-3 text-white bg-amber-700 rounded px-2 py-1">
                     {carListing.type == "rent" && (
                         <p>
                             Rent
@@ -111,7 +111,7 @@ const CarListingItem = ({carListing , id , editPost , deletePost , type}) => {
                             onClick={() => editPost(carListing.id)}
                         >
                             <MdEdit className="text-xl text-blue-600" />
-                            {isEditHovering && <span className="absolute right-10 text-white">Edit</span>}
+                            {isEditHovering && <span className={`absolute right-10 ${theme ? "text-black" : "text-white"} `}>Edit</span>}
                         </div>
                     )}
                     {deletePost && (
@@ -122,7 +122,7 @@ const CarListingItem = ({carListing , id , editPost , deletePost , type}) => {
                             onClick={() => deletePost(carListing.id)}
                         >
                             <MdDelete className="text-red-600 text-xl"/>
-                            {isDeleteHovering && <span className="absolute right-0 text-white">Delete</span>}
+                            {isDeleteHovering && <span className={`absolute right-0 ${theme ? "text-black" : "text-white"} `}>Delete</span>}
                         </div>
                     )}
                     

@@ -7,7 +7,7 @@ import CarListingItem from "../Components/CarListingItem";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
-const Profile = () => {
+const Profile = ({theme}) => {
     const [carListings , setCarListings] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showPosts , setShowPosts] = useState(false);
@@ -105,7 +105,7 @@ const Profile = () => {
     
 
   return (
-        <div className="text-white max-w-7xl mx-auto my-10">
+        <div className={`${theme ? "text-black" : "text-white"}  max-w-7xl mx-auto my-10`}>
                 <div className="flex flex-col justify-center items-center mx-4 lg:mx-0">
                     <p className="text-lg mb-4 capitalize text-center">
                         You can edit, delete, or update your name and posts here.
@@ -116,7 +116,9 @@ const Profile = () => {
                         disabled = {!allowEdit}
                         id="name"
                         onChange={handleEditInputChange}
-                        className={`mb-6 w-full md:w-[50%] lg:w-[40%] rounded border transition ease-in-out px-4 py-2 ${allowEdit ? "text-black" : "bg-transparent"} `}
+                        className={`mb-6 w-full md:w-[50%] lg:w-[40%] rounded border transition ease-in-out px-4 py-2  ${allowEdit ? "text-black" : ""}
+                                                                                                                       ${!allowEdit && !theme ? "bg-transparent" : ""}
+                                                                                                                       ${allowEdit && theme ? "bg-black text-white" : ""}  `}
                     />
                     <input 
                         type="email"
@@ -147,12 +149,12 @@ const Profile = () => {
                     </div>
                     <button 
                         onClick={handleShowPost}
-                        className="w-[300px] text-2xl font-bold border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
+                        className={`w-[300px] text-2xl font-bold border rounded px-4 py-1 text-white bg-amber-700 ${theme ? "hover:bg-black" : "hover:bg-transparent"}  transition duration-150 mb-4`}
                     >
                         {(showPosts && carListings?.length > 0) ? "Hide My Posts" : "Show My Posts"}
                     </button>
                     {!loading && showPosts && carListings.length === 0 && (
-                        <h1 className="text-white">You don't have any posts yet</h1>
+                        <h1 className={` ${theme ? "text-black" : "text-white"} text-white`}>You don't have any posts yet</h1>
                     )}
                 </div>
                 {!loading && carListings.length > 0 && showPosts && (
@@ -165,6 +167,7 @@ const Profile = () => {
                                 deletePost = {() => deletePost(carListing.id)}
                                 editPost = {() => editPost(carListing.id)}
                                 type = {carListing.data.type}
+                                theme={theme}
                              />
                         ))}
                     </div>

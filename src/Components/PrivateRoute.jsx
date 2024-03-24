@@ -2,7 +2,7 @@ import UserAuthenticationStatus from "../Hooks/UserAuthenticationStatus";
 import ClipLoader from "react-spinners/ClipLoader";
 import {Outlet , Navigate} from "react-router-dom"
 
-const PrivateRoute = () => {
+const PrivateRoute = ({theme}) => {
     const {loggedIn , checkingStatus} = UserAuthenticationStatus();
     if(checkingStatus) {
       return (
@@ -14,7 +14,7 @@ const PrivateRoute = () => {
             height: "100vh", 
           }}
       >
-        <ClipLoader color="white" size={50} />
+        <ClipLoader color={theme ? "black" : "white"} size={50} />
       </div>
       )
     }

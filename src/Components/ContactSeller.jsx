@@ -4,7 +4,7 @@ import { useState } from "react"
 import { db } from "../firebase";
 import {toast} from "react-toastify";
 
-const ContactSeller = ({car , useRef}) => {
+const ContactSeller = ({car , useRef , theme}) => {
     const [message , setMessage] = useState("");
     const [sellerData , setSellerData] = useState(null);
 
@@ -35,11 +35,11 @@ const ContactSeller = ({car , useRef}) => {
                 </p>
                 <textarea 
                     placeholder="message..."
-                    className="resize-none w-full h-[70px] px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out"
+                    className={`resize-none w-full h-[70px] px-4 py-2 text-xl ${theme ? "bg-zinc-40 border-2" : "bg-white"} text-gray-700  border border-gray-300 rounded transition duration-150 ease-in-out`}
                     onChange={handleMessageInputChange}
                 ></textarea>
                 <a href={`mailto:${sellerData.email}?Subject=${car.model}&body=${message}`}>
-                    <button className="bg-blue-600 px-4 py-1 w-full hover:bg-transparent hover:border transition duration-150">
+                    <button className={`bg-blue-600 px-4 py-1 w-full ${theme ? "hover:bg-zinc-200" : "hover:bg-transparent"}  hover:border transition duration-150`}>
                         Send
                     </button>
                 </a>

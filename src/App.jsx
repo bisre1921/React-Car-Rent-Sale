@@ -21,6 +21,7 @@ import Rent from "./Pages/Rent";
 const App = () => {
 
   const [loggedIn , setLoggedIn] = useState(false);
+  const [theme , setTheme] = useState(false);
   const auth = getAuth();
 
   useEffect(() => {
@@ -34,30 +35,43 @@ const App = () => {
    
   } , [auth]);
 
+  const handleThemeClicked = () => {
+    setTheme(!theme);
+  };
+
+  useEffect(() => {
+    // Set background color based on the theme
+    document.body.style.backgroundColor = theme ? "white" : "black";
+  }, [theme]);
+
   return (
     <div> 
       <Router>
-        <Navbar loggedIn={loggedIn} />
+        <Navbar 
+          loggedIn={loggedIn} 
+          handleThemeClicked = {handleThemeClicked}
+          theme = {theme}
+        />
         <Routes>
-          <Route path="/" element={<FrontPage loggedIn={loggedIn} />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/" element={<FrontPage theme={theme} loggedIn={loggedIn} />} />
+          <Route path="/sign-in" element={<SignIn theme={theme} />} />
+          <Route path="/sign-up" element={<SignUp theme={theme} />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/profile" element={<PrivateRoute />}>
-            <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<PrivateRoute theme={theme} />}>
+            <Route path="/profile" element={<Profile theme={theme}  />} />
           </Route> 
           <Route path="/sale" element={<PrivateRoute />}>
-            <Route path="/sale" element={<Sale />} />
+            <Route path="/sale" element={<Sale theme={theme} />} />
           </Route>
           <Route path="/buy-rent" element={<PrivateRoute />}>
-            <Route path="/buy-rent" element={<BuyRent />} />
+            <Route path="/buy-rent" element={<BuyRent theme={theme} />} />
           </Route>
-          <Route path="/car/:carId" element={<CarListing />} />
+          <Route path="/car/:carId" element={<CarListing theme={theme} />} />
           <Route path="/edit-carListing/:listingId" element={<PrivateRoute />}>
             <Route path="/edit-carListing/:listingId" element={<EditCarListing />} />
           </Route>
-          <Route path="/buy" element={<Buy />} />
-          <Route path="/rent" element={<Rent />} />
+          <Route path="/buy" element={<Buy theme={theme} />} />
+          <Route path="/rent" element={<Rent theme={theme} />} />
         </Routes>
       </Router>
       <ToastContainer

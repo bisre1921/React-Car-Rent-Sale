@@ -1,8 +1,8 @@
 import about from "../Assets/about.png";
 
-const About = () => {
+const About = ({theme}) => {
   return (
-    <div className="mt-80 mb-80 md:mb-40 max-w-7xl mx-auto h-[700px] text-white ">
+    <div className={` mt-80 mb-80 md:mb-40 max-w-7xl mx-auto h-[700px]  ${theme ? "text-black" : "text-white"} ` }>
         <h1 className="text-6xl font-bold mb-16 text-center">
             About <span className="text-amber-700">CarConnect</span>
         </h1>

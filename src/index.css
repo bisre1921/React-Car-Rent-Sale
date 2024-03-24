@@ -3,12 +3,26 @@
 @tailwind utilities;
 
 
- body {
-    background-color: black;
- }
 
  .Toastify__toast-container--top-center {
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
+}
+.swiper-button-next:after,
+.swiper-button-prev:after{
+    color: rgb(194 65 12);
+}
+
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill{
+    background: rgb(194 65 12) !important
+}
+
+/* for chrome  */
+html::-webkit-scrollbar{
+    display: none;
+}
+/* for firefox */
+html{
+    scrollbar-width: none;
 }

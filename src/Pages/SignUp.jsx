@@ -10,7 +10,7 @@ import {toast} from "react-toastify";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 
-const SignUp = () => {
+const SignUp = ({theme}) => {
   const navigate = useNavigate();
   const [formData , setFormData] = useState({
     name : "" , 
@@ -53,7 +53,7 @@ const SignUp = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto  text-white">
+    <div className={`max-w-7xl mx-auto ${theme ? "text-black" : "text-white"}`}>
       <h1 className="text-6xl font-bold mb-16 text-center">
         Sign <span className="text-amber-700">Up</span> 
       </h1>
@@ -73,7 +73,7 @@ const SignUp = () => {
               id="name"
               value={name}
               onChange={handleFormInputChange}
-              className="w-full 2xl:w-[400px] rounded px-2 py-4 mb-6 font-bold text-xl text-black"
+              className={`w-full rounded px-2 py-4 mb-6 font-bold text-xl ${theme ? "border bg-zinc-100" : ""} text-black`}
             />
             <input 
               type="email" 
@@ -81,7 +81,7 @@ const SignUp = () => {
               value={email}
               id="email"
               onChange={handleFormInputChange}
-              className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
+              className={`w-full rounded px-2 py-4 mb-6 font-bold text-xl ${theme ? "border bg-zinc-100" : ""} text-black`}
             />
             <div className="relative">
               <input 
@@ -90,7 +90,7 @@ const SignUp = () => {
                 value={password}
                 id="password"
                 onChange={handleFormInputChange}
-                className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
+                className={`w-full rounded px-2 py-4 mb-6 font-bold text-xl ${theme ? "border bg-zinc-100" : ""} text-black`}
               />
               {showPassword ? (
                   <IoEyeOff  
@@ -113,14 +113,14 @@ const SignUp = () => {
                 </p>
             </div>
             <div className="fex justify-center items-center text-center">
-              <button className="w-full bg-zinc-900 shadow-xl py-2 transition duration-150 hover:bg-zinc-700 hover:shadow-2xl">
+              <button className={`w-full ${theme ? "bg-zinc-200" : "bg-zinc-900"} shadow-xl py-2 transition duration-150 hover:bg-zinc-700 hover:shadow-2xl`}>
                 Sign Up
               </button>
               <p className="my-2">
                 OR
               </p>
               <div>
-                <SignInWithGoogle />
+                <SignInWithGoogle theme={theme} />
               </div>
             </div>
           </form>

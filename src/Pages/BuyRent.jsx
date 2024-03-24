@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { FaSearch } from "react-icons/fa";
 
-const BuyRent = () => {
+const BuyRent = ({theme}) => {
   const [carListings , setCarListings] = useState([]);
   const [saleListings , setSaleListings] = useState(null);
   const [rentListings , setRentListings] = useState(null);
@@ -112,13 +112,13 @@ const BuyRent = () => {
             height: "100vh", 
           }}
       >
-        <ClipLoader color="white" size={50} />
+        <ClipLoader color={theme ? "black" : "white"} size={50} />
       </div>
     )
   }
   
   return (
-    <div className="text-white max-w-7xl mx-auto my-10">
+    <div className={` ${theme ? "text-black" : "text-white"} max-w-7xl mx-auto my-10`}>
       
       <div>
           <h1 className="text-center text-xl lg:text-3xl font-semibold mb-6">
@@ -131,7 +131,7 @@ const BuyRent = () => {
           type="text" 
           placeholder="Search..."
           onChange={handleSearchInputChange}
-          className="w-full mx-4 lg:w-[600px] bg-zinc-800 rounded border h-12 px-4 pl-10"
+          className={`w-full mx-4 lg:w-[600px] ${theme ? "bg-zinc-200" : "bg-zinc-800"} rounded border h-12 px-4 pl-10`}
         />
         <FaSearch className="absolute left-8 lg:left-[220px] xl:left-[350px]" />
       </div>
@@ -151,7 +151,7 @@ const BuyRent = () => {
       <div className="mb-16">
       {!loading && !searchQuery && (
           <div className="mb-4">
-            <h1 className="text-xl font-bold">
+            <h1 className={`text-xl ${theme ? "text-black" : "text-white"} font-bold`}>
               You can Select the car which you want to buy
             </h1>
             <Link className="font-semibold text-blue-600 hover:text-blue-900 transition duration-200" to="/buy">
@@ -168,6 +168,7 @@ const BuyRent = () => {
                         key={saleListing.id}
                         id={saleListing.id}
                         carListing={saleListing.data}
+                        theme={theme}
                       />
                     )
                 })}
@@ -177,7 +178,7 @@ const BuyRent = () => {
       <div>
         {!loading & !searchQuery ? (
             <div className="mb-4">
-              <h1 className="">
+              <h1 className={`text-xl ${theme ? "text-black" : "text-white"} font-bold`}>
                 You can Select the car which you want to Rent
               </h1>
               <Link className="font-semibold text-blue-600 hover:text-blue-900 transition duration-200" to="/rent">
@@ -186,7 +187,7 @@ const BuyRent = () => {
             </div>
         ) : (
           <h1>
-            
+
           </h1>
         )}
         
@@ -198,6 +199,7 @@ const BuyRent = () => {
                         key={rentListing.id}
                         id={rentListing.id}
                         carListing={rentListing.data}
+                        theme={theme}
                       />
                     )
                 })}

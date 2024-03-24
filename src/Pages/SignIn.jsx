@@ -7,7 +7,7 @@ import { useState } from "react";
 import {toast} from "react-toastify";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const SignIn = () => {
+const SignIn = ({theme}) => {
   const navigate = useNavigate();
   const [formData , setFormData] = useState({
     email : "" , 
@@ -36,7 +36,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto  text-white">
+    <div className={`max-w-7xl mx-auto ${theme ? "text-black" : "text-white"}  `}>
       <h1 className="text-6xl font-bold mb-16 text-center">
         Sign <span className="text-amber-700">In</span> 
       </h1>
@@ -56,7 +56,7 @@ const SignIn = () => {
               id="email"
               value={email}
               onChange={handleFormInputChange}
-              className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
+              className={`w-full rounded px-2 py-4 mb-6 font-bold text-xl ${theme ? "border bg-zinc-100" : ""} text-black`}
             />
             <input 
               type="password" 
@@ -64,7 +64,7 @@ const SignIn = () => {
               id="password"
               value={password}
               onChange={handleFormInputChange}
-              className="w-full rounded px-2 py-4 mb-6 font-bold text-xl text-black"
+              className={`w-full rounded px-2 py-4 mb-6 font-bold text-xl ${theme ? "border bg-zinc-100" : ""} text-black`}
             />
             <div className="flex gap-4 flex-col lg:flex-row justify-between mb-6">
                 <p>Don't have an account?
@@ -72,21 +72,21 @@ const SignIn = () => {
                     Sign Up
                   </Link>
                 </p>
-                <p className="text-center border-none mt-6 lg:mt-0 lg:border px-2 py-2 rounded bg-zinc-900 hover:bg-transparent">
+                <p className={`text-center border-none mt-6 lg:mt-0 lg:border px-2 py-2 rounded ${theme ? "bg-zinc-200" : "bg-zinc-900"} hover:bg-transparent`}>
                   <Link to="/forgot-password" element={<ForgotPassword />}>
                     Forgot password
                   </Link>
                 </p>
             </div>
             <div className="fex justify-center items-center text-center">
-              <button className="w-full bg-zinc-900 shadow-xl py-2 transition duration-150 hover:bg-zinc-700 hover:shadow-2xl">
+              <button className={`w-full ${theme ? "bg-zinc-200" : "bg-zinc-900"} shadow-xl py-2 transition duration-150 hover:bg-zinc-700 hover:shadow-2xl`}>
                 Sign In
               </button>
               <p className="my-2">
                 OR
               </p>
               <div>
-                <SignInWithGoogle />
+                <SignInWithGoogle theme={theme} />
               </div>
             </div>
           </form>

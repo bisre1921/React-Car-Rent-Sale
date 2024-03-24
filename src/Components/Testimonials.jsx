@@ -3,7 +3,7 @@ import testimonial1 from "../Assets/testimonial1.png";
 import testimonial2 from "../Assets/testimonial2.png";
 import testimonial3 from "../Assets/testimonial3.png";
 
-const Testimonials = () => {
+const Testimonials = ({theme}) => {
   const testimonials = [
     { 
       name : "Emily Johnson" , 
@@ -25,7 +25,7 @@ const Testimonials = () => {
     }
   ]
   return (
-    <div className="h-[700px] max-w-6xl mx-auto text-white text-center" id="testimonials">
+    <div className={`h-[700px] max-w-6xl mx-auto ${theme ? "text-black" : "text-white"}  text-center`} id="testimonials">
       <div className="mb-16">
         <h3 className="text-xl lg:text-3xl font-semibold">Testimonials</h3>
         <h1 className="text-3xl lg:text-6xl font-bold">What our <span className="text-amber-700">users</span> say</h1>
@@ -33,7 +33,7 @@ const Testimonials = () => {
       </div>
       <div className="flex flex-col  lg:flex-row justify-between">
         {testimonials.map((testimonial) => (
-          <Testimonial testimonial={testimonial} key={testimonial.name} />
+          <Testimonial theme={theme} testimonial={testimonial} key={testimonial.name} />
         ))}
       </div>
     </div>

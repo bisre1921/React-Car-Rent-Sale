@@ -1,9 +1,10 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import home2 from "../Assets/home2.jpg";
+import whiteHome from "../Assets/whiteHome.png"
 import {useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const Home = ({loggedIn}) => {
+const Home = ({loggedIn , theme}) => {
   const [name , setName] = useState(null);
 
   const navigate = useNavigate();
@@ -23,15 +24,16 @@ const Home = ({loggedIn}) => {
       <div>
          <div 
             id="home" 
-            className="relative h-[600px]"
+            className={`relative h-[600px]`}
             style={{
-              background : `url(${home2}) center, no-repeat`,
-              backgroundSize: "cover" ,
-              backgroundRepeat: "no-repeat" ,
+                    backgroundImage: `url(${theme ? whiteHome : home2})`,
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover"
             }}
           >   
          </div>
-            <div className="absolute top-[150px] left-[10px] md:left-[50px] 2xl:top-[150px] 2xl:left-[190px] bg-transparent mt-20 text-white">
+            <div className={`absolute top-[150px] left-[10px] md:left-[50px] 2xl:top-[150px] 2xl:left-[190px] bg-transparent mt-20 ${theme ? " text-yellow-50 font-bold" : "text-white "}`}>
               <div className="">
                 {!loggedIn ? (
                     <div>

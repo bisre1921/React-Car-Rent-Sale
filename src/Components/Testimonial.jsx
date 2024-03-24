@@ -1,13 +1,13 @@
 import { FaQuoteLeft } from "react-icons/fa";
-const Testimonial = ({testimonial}) => {
+const Testimonial = ({testimonial , theme}) => {
   return (
     <div className="md:px-24 lg:px-0">
-        <div className=" relative bg-zinc-900 shadow-2xl mx-4 mb-16 lg:mb-0 pb-8 pt-20">
+        <div className={`relative ${theme ? "bg-zinc-200" : "bg-zinc-900"}  shadow-2xl mx-4 mb-16 lg:mb-0 pb-8 pt-20`}>
             <div className="absolute left-1/2 transform -translate-x-1/2 top-[-50px]">
                 <img 
                     src={testimonial.image} 
                     alt="testimonial image" 
-                    className="h-24 w-24 rounded-full bg-slate-800 p-2"
+                    className={`h-24 w-24 rounded-full  p-2 ${theme ? "bg-zinc-200" : "bg-slate-800"}`}
                 />
             </div>
             <h1 className="text-2xl font-bold">
