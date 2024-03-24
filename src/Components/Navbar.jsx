@@ -73,11 +73,14 @@ const Navbar = ({loggedIn , handleThemeClicked , theme}) => {
         <nav className={`${isScrolling && !theme ? "bg-zinc-800" : ""} ${isScrolling && theme ? "bg-zinc-200" : ""} sticky top-0 z-50 ${theme ? "text-black" : "text-white"} `}>
             <div className={`flex max-w-6xl mx-auto justify-between  ${isMenuClicked ? "items-start  text-white bg-amber-700" : "items-center"} `}>
                 <div>
-                    <img 
-                        src={logo} 
-                        alt="logo" 
-                        className="h-16 md:h-24"
-                    />
+                    <Link to="home" smooth={true} duration={500} offset={-250}>
+                        <img 
+                            src={logo} 
+                            alt="logo" 
+                            className="h-16 md:h-24 cursor-pointer"
+                        />
+                    </Link>
+                    
                 </div>
                 <div className={`md:flex md:flex-row ${isMenuClicked ? 'block' : 'hidden'}`}>
                     <div className="mb-[24px] md:mb-0">

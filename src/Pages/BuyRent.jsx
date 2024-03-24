@@ -142,6 +142,7 @@ const BuyRent = ({theme}) => {
                 key={listing.id}
                 id={listing.id}
                 carListing={listing.data}
+                theme={theme}
               />
             ))}
           </div>

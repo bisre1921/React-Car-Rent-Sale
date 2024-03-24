@@ -56,7 +56,7 @@ const App = () => {
           <Route path="/" element={<FrontPage theme={theme} loggedIn={loggedIn} />} />
           <Route path="/sign-in" element={<SignIn theme={theme} />} />
           <Route path="/sign-up" element={<SignUp theme={theme} />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword theme={theme} />} />
           <Route path="/profile" element={<PrivateRoute theme={theme} />}>
             <Route path="/profile" element={<Profile theme={theme}  />} />
           </Route> 
@@ -68,7 +68,7 @@ const App = () => {
           </Route>
           <Route path="/car/:carId" element={<CarListing theme={theme} />} />
           <Route path="/edit-carListing/:listingId" element={<PrivateRoute />}>
-            <Route path="/edit-carListing/:listingId" element={<EditCarListing />} />
+            <Route path="/edit-carListing/:listingId" element={<EditCarListing theme={theme} />} />
           </Route>
           <Route path="/buy" element={<Buy theme={theme} />} />
           <Route path="/rent" element={<Rent theme={theme} />} />

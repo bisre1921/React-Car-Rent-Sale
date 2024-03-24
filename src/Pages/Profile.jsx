@@ -154,7 +154,7 @@ const Profile = ({theme}) => {
                         {(showPosts && carListings?.length > 0) ? "Hide My Posts" : "Show My Posts"}
                     </button>
                     {!loading && showPosts && carListings.length === 0 && (
-                        <h1 className={` ${theme ? "text-black" : "text-white"} text-white`}>You don't have any posts yet</h1>
+                        <h1 className={` ${theme ? "text-black" : "text-white"}`}>You don't have any posts yet</h1>
                     )}
                 </div>
                 {!loading && carListings.length > 0 && showPosts && (

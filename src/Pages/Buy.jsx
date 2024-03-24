@@ -69,7 +69,7 @@ const Buy = ({theme}) => {
                     height: "100vh", 
                 }}
             >
-                <ClipLoader color="white" size={50} />
+                <ClipLoader color={theme ? "black" : "white"} size={50} />
             </div>
         )
     }
@@ -98,7 +98,7 @@ const Buy = ({theme}) => {
                     <div className="flex justify-center items-center mt-8">
                         <button
                                 onClick={handleFetchMoreCars}
-                                className="w-[200px] font-bold border rounded px-0 py-1 text-white bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
+                                className={`w-[200px] font-bold border rounded px-0 py-1 ${theme ? "text-black hover:bg-zinc-200" : "text-white hover:bg-transparent"}  bg-amber-700  transition duration-150 mb-4`}
                         >
                             Load more...
                         </button>

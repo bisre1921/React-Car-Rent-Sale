@@ -9,7 +9,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import {useNavigate , useParams} from "react-router-dom";
 import { useEffect } from "react";
 
-const EditCarListing = () => {
+const EditCarListing = ({theme}) => {
     const auth = getAuth();
     const navigate = useNavigate();
     const params = useParams();
@@ -152,14 +152,13 @@ const EditCarListing = () => {
                 height: "100vh", 
               }}
           >
-            <ClipLoader color="white" size={50} />
+            <ClipLoader color={theme ? "black" : "white"} size={50} />
           </div>
           )
     }
 
-
-  return (
-    <div className="text-white max-w-6xl mx-auto mt-10 mb-10">
+ return (
+    <div className={`${theme ? "text-black" : "text-white"}  max-w-6xl mx-auto mt-10 mb-10`}>
         <div className="text-center">
             <h1 className="text-3xl lg:text-6xl font-bold mb-4">
                 <span className="text-amber-700">Edit</span> Your Car
@@ -171,7 +170,7 @@ const EditCarListing = () => {
         <div>
             <form onSubmit={handleSaleFormSubmit} >
                 <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-8">
-                <div className ="bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
+                <div className ={`${theme ? "bg-zinc-200" : "bg-zinc-900"}  shadow-lg py-8 px-4 rounded text-center md:mx-16 lg:mx-0`}>
                     <h1 className="text-center mb-4 text-xl">
                         Fill Car Information
                     </h1>
@@ -250,7 +249,7 @@ const EditCarListing = () => {
                         <option value="no">No</option>
                     </select>
                 </div>
-                <div className ="bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
+                <div className ={`${theme ? "bg-zinc-200" : "bg-zinc-900"}  shadow-lg py-8 px-4 rounded text-center md:mx-16 lg:mx-0`}>
                     <h1 className="text-center mb-4 text-xl">
                         Fill Exterior and Interior Features
                     </h1>
@@ -336,7 +335,7 @@ const EditCarListing = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                     />
                 </div>
-                <div className ="bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
+                <div className ={`${theme ? "bg-zinc-200" : "bg-zinc-900"}  shadow-lg py-8 px-4 rounded text-center md:mx-16 lg:mx-0`}>
                     <h1 className="text-center mb-4 text-xl">
                         Fill Additional Details
                     </h1>
@@ -383,7 +382,7 @@ const EditCarListing = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                     />
                 </div>
-                <div className ="bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
+                <div className ={`${theme ? "bg-zinc-200" : "bg-zinc-900"}  shadow-lg py-8 px-4 rounded text-center md:mx-16 lg:mx-0`}>
                     <h1 className="text-center mb-4 text-xl">
                         Upload photos of the car
                     </h1>
@@ -392,10 +391,10 @@ const EditCarListing = () => {
                         required
                         multiple
                         onChange={handleSaleFormInputChange}
-                        className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-white pl-4 py-2 font-semibold"
+                        className={` rounded w-[300px] md:w-[500px] lg:w-full mb-4 ${theme ? "text-black border-black" : "text-white border-white"}pl-4 py-2 font-semibold`}
                     />
                 </div>
-                <div className ="bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
+                <div className ={`${theme ? "bg-zinc-200" : "bg-zinc-900"}  shadow-lg py-8 px-4 rounded text-center md:mx-16 lg:mx-0`}>
                     <h1 className="text-center mb-4 text-xl">
                         Seller Contact
                     </h1>
@@ -418,7 +417,7 @@ const EditCarListing = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                     />
                 </div>
-                <div className ="bg-zinc-900 shadow-2xl py-8 px-4 rounded text-center md:mx-16 lg:mx-0">
+                <div className ={`${theme ? "bg-zinc-200" : "bg-zinc-900"}  shadow-lg py-8 px-4 rounded text-center md:mx-16 lg:mx-0`}>
                     <h1 className="text-center mb-4 text-xl">
                         Price
                     </h1>
@@ -432,7 +431,7 @@ const EditCarListing = () => {
                         className="border-white rounded w-[300px] md:w-[500px] lg:w-full mb-4 text-black pl-4 py-2 font-semibold"
                     />
                     <button 
-                        className="border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4"
+                        className={`border rounded px-4 py-1  bg-amber-700 ${theme ? "hover:bg-zinc-100" : "hover:bg-transparent"} transition duration-150 mb-4`}
                         onClick={setOffer}
                     >
                         {checkOffer ? "No offer" : "With Offer"}
@@ -451,7 +450,7 @@ const EditCarListing = () => {
                 </div>
                 </div>
                 <div className="flex justify-center items-center mt-8">
-                    <button className="w-[300px] text-2xl font-bold border rounded px-4 py-1 bg-amber-700 hover:bg-transparent transition duration-150 mb-4" type="submit">
+                    <button className={`w-[300px] text-2xl font-bold border rounded px-4 py-1 ${theme ? "text-black hover:bg-zinc-200" : "text-white hover:bg-transparent"} bg-amber-700 transition duration-150 mb-4`} type="submit">
                         Edit
                     </button>
                 </div>

@@ -124,7 +124,7 @@ const Sale = ({theme}) => {
                 height: "100vh", 
               }}
           >
-            <ClipLoader color="white" size={50} />
+            <ClipLoader color={theme ? "black" : "white"} size={50} />
           </div>
           )
     }
@@ -478,7 +478,7 @@ const Sale = ({theme}) => {
                 </div>
                 </div>
                 <div className="flex justify-center items-center mt-8">
-                    <button className={`w-[300px] text-2xl font-bold border rounded px-4 py-1 ${theme ? "text-black hover:bg-zinc-200" : "text-white hover:bg-transparent"} bg-amber-700 transition duration-150 mb-4" type="submit`}>
+                    <button className={`w-[300px] text-2xl font-bold border rounded px-4 py-1 ${theme ? "text-black hover:bg-zinc-200" : "text-white hover:bg-transparent"} bg-amber-700 transition duration-150 mb-4`} type="submit">
                         Submit
                     </button>
                 </div>
